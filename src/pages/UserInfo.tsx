@@ -1,65 +1,3 @@
-## type setting for lifting sate up
-
-#### Parent component
-
-```
-import { useState } from "react";
-import "./App.css";
-import Child from "./pages/Child";
-
-function Parent() {
-
-  const [counter, setCounter] = useState(0);
-
-  return (
-    <>
-      <div>
-        <div>
-          <UseStateExample counter={counter} setCounter={setCounter} />
-        </div>
-      </div>
-    </>
-  );
-}
-
-export default App;
-
-```
-
-#### ChildComponent
-
-```
-import React from "react";
-
-// type for counter and setCounter
-type TCounter = {
-  counter: number;
-  setCounter: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const Child = ({ counter, setCounter }: TCounter) => {
-  return (
-    <div>
-
-    </div>
-  );
-};
-
-export default Child;
-
-```
-
----
-
-# Handling form data in Object using useState
-
-### Applying dry principle to handle multiple change handler
-
-- type for form input e:<React.ChangeEvent<HTMLFormElement>
-- name attribute of the input field must be the same for the state name
-- [e.target.name]:e.target.value -- is used for dynamic name
-
-```
 import React, { useState } from "react";
 
 const UserInfo = () => {
@@ -67,6 +5,8 @@ const UserInfo = () => {
     name: "",
     email: "",
   });
+
+  //
 
   const submitHandler = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -84,14 +24,19 @@ const UserInfo = () => {
 
   return (
     <>
+      <h2 className="font-bold text-center">useState in object</h2>
+      <div className="flex justify-center ">
         <form
           onSubmit={submitHandler}
+          className="border-2 p-4 rounded-md"
+          action=""
         >
           <div>
             <div>
               <label htmlFor="name">Name</label>
               <input
                 onChange={changeHandler}
+                className="border-gray-400 m-2 border px-8 py-2"
                 type="text"
                 name="name"
                 id="name"
@@ -99,6 +44,7 @@ const UserInfo = () => {
               <label htmlFor="email">Email</label>
               <input
                 onChange={changeHandler}
+                className="border-gray-400 m-2 border px-8 py-2"
                 type="text"
                 name="email"
                 id="email"
@@ -106,16 +52,17 @@ const UserInfo = () => {
             </div>
             <div className="flex justify-end pr-2">
               <button
+                className="ml-4 border border-green-400 bg-green-300 hover:bg-green-400 px-8 py-2 rounded-md text-white"
                 type="submit"
               >
                 Submit
               </button>
             </div>
           </div>
+        </form>
+      </div>
     </>
   );
 };
 
 export default UserInfo;
-
-```
