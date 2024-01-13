@@ -1,4 +1,9 @@
-## type setting for lifting sate up
+# Incorporating Typescript with React
+
+- [TypeSetting for lifting state up](#typeSetting-for-lifting-sate-up)
+- [Handling form data in Object using useState](#Handling-form-data-in-Object-using-useState)
+
+### typeSetting for lifting sate up
 
 #### Parent component
 
@@ -51,7 +56,7 @@ export default Child;
 
 ---
 
-# Handling form data in Object using useState
+### Handling form data in Object using useState
 
 ### Applying dry principle to handle multiple change handler
 
@@ -217,4 +222,4 @@ export default UseReducerForm;
   console.log(state);
   };
   ```
-  **_ e: React.ChangeEvent<HTMLFormElement> _** This part came from react
+  `e: React.ChangeEvent<HTMLFormElement>` This part came from react
