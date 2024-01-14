@@ -10,6 +10,7 @@ import UseEffectExample from "./pages/UseEffectExample";
 import UseReducerForm from "./pages/UseReducerForm";
 import UseRefExamples from "./pages/UseRefExamples";
 import ContextExample from "./pages/ContextExample";
+import { MenuItem, MenuList } from "./components/Menu";
 
 function App() {
   //   console.log('render');
@@ -18,6 +19,9 @@ function App() {
   return (
     <>
       <div className="max-w-7xl mx-auto my-0">
+        <MenuList>
+          <MenuItem></MenuItem>
+        </MenuList>
         <h1 className="text-center text-4xl">Hello World</h1>
 
         <div className=" bg-gray-100   p-4">

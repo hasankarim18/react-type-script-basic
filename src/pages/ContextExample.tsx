@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "../context/ThemeProvider";
+import { useContext } from "react";
+import { TThemeContext, ThemeContext } from "../context/ThemeProvider";
 
 const ContextExample = () => {
-  const { dark, setDark } = useContext(ThemeContext);
+  const { dark, setDark } = useContext(ThemeContext) as TThemeContext;
 
   return (
     <div>
