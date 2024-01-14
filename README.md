@@ -5,6 +5,7 @@
 - [Handling form data in Object using useState](#Handling-form-data-in-Object-using-useState)
 - [SideEffect useEffect--> cleneup effect](#SideEffect-useEffect)
 - [Memory Leak Cleneup fetch request using AbortConroller](#Memory-Leak)
+- [useRef as reference](#useRef)
 
 ### typeSetting for lifting sate up
 
@@ -333,4 +334,104 @@ const Form = () => {
     console.log('Render')
   }[user.name,user.email])
 }
+```
+
+---
+
+### useRef
+
+- useRef create a reference value, by changin ref will not trigger the component re-render
+- when state change component get re-render first then states are updated by batch update
+- unlike state , ref get updated instantly
+
+```
+import { useRef, useState } from "react";
+
+const UseRefExamples = () => {
+  const [counter, setCounter] = useState(0);
+  const ref = useRef(0);
+
+  const increment = () => {
+    ref.current = ref.current + 1;
+    setCounter((prev) => prev + 1);
+
+    console.log("state => ", counter); // it will update after the component re-rendered completely
+    console.log("ref => ", ref.current); // by clicking the button it will updated instantly before the re-render
+  };
+
+  return (
+    <div className="text-center">
+      <h1>useRef</h1>
+      <div>
+        <button
+          onClick={() => {
+            increment();
+          }}
+          className="btn-primary btn"
+        >
+          Increment Ref {ref.current}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default UseRefExamples;
+
+```
+
+- Thus ref does not re-render the component it con't be seen in the dom. you can see it in console, but not in the dom
+- When ever a state change it will forced the componet to re-render and the ref value will be shown in the dom.
+
+#### useRef can be use in form but not recomended it is called uncontrolled form handling
+
+- useRef is mainly used for accessing the dom for animation or focus
+
+```
+import React, { useEffect, useRef } from "react";
+
+// from handling with uncontrolled way
+
+const FormUsingRef = () => {
+  const nameRef = useRef<HTMLInputElement | null>(null);
+
+  // uncontrolled way of form handling not recomended
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(nameRef.current?.value);
+  };
+
+  // mainly used for dom manipulation for animation for focus
+  // below when the form will mount it will automaticall focus on input
+  useEffect(() => {
+    nameRef.current?.focus();
+
+    return () => {};
+  }, []);
+
+  return (
+    <div className="text-center">
+      <h1 className="text-2xl">Form using useRef</h1>
+      <div className="m-4">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              ref={nameRef}
+              type="text"
+              name="name"
+              id="name"
+              className="border border-red-400 mr-4"
+            />
+            <button type="submit" className="btn btn-primary">
+              Submitt
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default FormUsingRef;
+
 ```
