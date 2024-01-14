@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import CustomInputs from "../components/CustomInputs";
 
 // from handling with uncontrolled way
 
@@ -24,14 +25,8 @@ const FormUsingRef = () => {
       <h1 className="text-2xl">Form using useRef</h1>
       <div className="m-4">
         <form onSubmit={handleSubmit}>
-          <div>
-            <input
-              ref={nameRef}
-              type="text"
-              name="name"
-              id="name"
-              className="border border-red-400 mr-4"
-            />
+          <CustomInputs ref={nameRef} className="border border-blue-500 btn" />
+          <div className="mt-2">
             <button type="submit" className="btn btn-primary">
               Submitt
             </button>
