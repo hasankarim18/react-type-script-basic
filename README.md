@@ -2,6 +2,9 @@
 
 - [TypeSetting for lifting state up](#typeSetting-for-lifting-sate-up)
 - [Handling form data in Object using useState](#Handling-form-data-in-Object-using-useState)
+- [Handling form data in Object using useState](#Handling-form-data-in-Object-using-useState)
+- [SideEffect useEffect--> cleneup effect](#SideEffect-useEffect)
+- [Memory Leak Cleneup fetch request using AbortConroller](#Memory-Leak)
 
 ### typeSetting for lifting sate up
 
@@ -223,3 +226,111 @@ export default UseReducerForm;
   };
   ```
   `e: React.ChangeEvent<HTMLFormElement>` This part came from react
+
+---
+
+### SideEffect useEffect
+
+- useEffect is use to handle sideEffects of react.
+- sometimes cleneup function is required
+- clene up function runs before the useEffect main body runs
+- clene up function is required to stop memory leak
+- memory leak is something that continues even element is unmounted from the dom
+- in the below example if do not use clene up function in Counter component it will continue running even it is hidden from the dom.
+
+```
+import { useEffect, useState } from "react";
+
+const UseEffectExample = () => {
+  const [hidden, setHidden] = useState(false);
+
+  return (
+    <div>
+      {!hidden && <div>{<Counter />}</div>}
+      <button
+        onClick={() => setHidden((prev) => !prev)}
+      >
+        Click
+      </button>
+    </div>
+  );
+};
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      console.log("render");
+      setCount((prev) => prev + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  return (
+    <>
+      <h1>{count}</h1>
+    </>
+  );
+};
+
+export default UseEffectExample;
+
+```
+
+## Memory Leak
+
+### Fetch request clene up on useEffect by AbortController class
+
+```
+const Todo = () => {
+  const controller = new AbortController();
+
+  // signal is property it needs to call
+  const signal = controller.signal;
+
+  // this can be used by axio // cancel token
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/todos/1", { signal })
+      .then((res) => res.json())
+      .then((data) => {
+        alert(data.title);
+      });
+
+    return () => {
+      // abort is property it needs to call
+      controller.abort();
+    };
+  }, []);
+  return <div>Todo</div>;
+};
+
+export default UseEffectExample;
+```
+
+- If we use AbortController signal and controller.abort() property then if the element is unmount before the fetch from database is done it will not fetch the data anymore.
+- Otherwise it will fetch the in the background data even it is unmonted before the fetch request complete.
+- This is called memory leak
+
+#### Do not use object as a reference in useEffect
+
+- Because object is a reference it will creact a new reference and can't be able to compare one object to another and will do unnecessary rerender
+- Either use useMemo or use premitive value, primitve value can be compare
+
+```
+const Form = () => {
+  const [user, setUser] = [{name:'', email:''}]
+
+ -- wrong approach
+  useEffect(()=> {
+    console.log('Render')
+  }[user])
+
+  -- correct approach, put premitive value
+  useEffect(()=> {
+    console.log('Render')
+  }[user.name,user.email])
+}
+```

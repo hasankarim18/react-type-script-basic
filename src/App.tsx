@@ -1,14 +1,15 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "./App.css";
-import UseStateExample from "./pages/UseStateExample";
-import Contact from "./pages/Contact";
-import UserInfo from "./pages/UserInfo";
-import ComplexForm from "./pages/ComplexForm";
+import UseEffectExample from "./pages/UseEffectExample";
+// import UseStateExample from "./pages/UseStateExample";
+// import Contact from "./pages/Contact";
+// import UserInfo from "./pages/UserInfo";
+// import ComplexForm from "./pages/ComplexForm";
 import UseReducerForm from "./pages/UseReducerForm";
 
 function App() {
   //   console.log('render');
-  const [counter, setCounter] = useState(0);
+  // const [counter, setCounter] = useState(0);
 
   return (
     <>
@@ -22,6 +23,9 @@ function App() {
         <div className="p-4 bg-gray-100 mt-4 ">{/* <ComplexForm /> */}</div>
         <div className="p-4 bg-blue-100 mt-4 ">
           <UseReducerForm />
+        </div>
+        <div className="p-4 bg-blue-100 mt-4 ">
+          <UseEffectExample />
         </div>
       </div>
     </>
