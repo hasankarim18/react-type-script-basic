@@ -6,6 +6,7 @@
 - [SideEffect useEffect--> cleneup effect](#SideEffect-useEffect)
 - [Memory Leak Cleneup fetch request using AbortConroller](#Memory-Leak)
 - [useRef as reference](#useRef)
+- [Higher Order Component Patern](#Higher-Order-Component)
 
 ### typeSetting for lifting sate up
 
@@ -433,5 +434,41 @@ const FormUsingRef = () => {
 };
 
 export default FormUsingRef;
+
+```
+
+---
+
+### Higher Order Component
+
+- A higher ordre component is a component which takes a component as a paramerter and return another component is called Higher order component
+- During this process some changes is done inside the component
+- To understand a higher order component we need to understand javascript's higher order function
+
+#### Higher Order function
+
+- A higher order function is function which takes a function as a parameter and returns another function which after adding some modification to it. the original function will reamain untouched.
+
+```
+// A higher order function
+const wrapperFunction = (func) => {
+ return (num) => {
+   return func(num) * 2;
+ };
+};
+
+// a simple function
+const addOne = (num) => {
+ return num + 1;
+};
+
+console.log(addOne(2)) // 3
+
+// instance of higher order function
+const addOneAndDouble = wrapperFunction(addOne);
+
+console.log(addOneAndDouble(4)); // 10 --- (4+1) x 2
+
+console.log(8) // 9
 
 ```

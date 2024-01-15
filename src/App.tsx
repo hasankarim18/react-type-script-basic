@@ -11,6 +11,9 @@ import UseReducerForm from "./pages/UseReducerForm";
 import UseRefExamples from "./pages/UseRefExamples";
 import ContextExample from "./pages/ContextExample";
 import { MenuItem, MenuList } from "./components/Menu";
+import Profile from "./pages/Profile";
+import GameResult from "./pages/GameResult";
+import UsersContainer from "./components/UsersContainer";
 
 function App() {
   //   console.log('render');
@@ -22,6 +25,16 @@ function App() {
         <MenuList>
           <MenuItem></MenuItem>
         </MenuList>
+        <div className="my-4">
+          <Profile />
+          <div className="mt-2 pt-2 border border-t-red-200">
+            <GameResult />
+          </div>
+        </div>
+        <div className="min-h-24 bg-blue-400">
+          <h1 className="text-center mt-8">User Containers</h1>
+          <UsersContainer />
+        </div>
         <h1 className="text-center text-4xl">Hello World</h1>
 
         <div className=" bg-gray-100   p-4">
